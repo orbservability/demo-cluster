@@ -1,60 +1,28 @@
-# Turing Pi 2 Kubernetes Cluster
+# Demo Cluster
 
-Flux driven bare metal kubernetes cluster living on the edge.
-
-![IMG_1022](https://user-images.githubusercontent.com/2963800/256379395-9535575e-c533-4981-aa85-0f44d37322ea.jpg)
-
-## Getting Started
-
-### Turing Pi
-
-A compact AI & edge computing cluster.
+Flux driven kubernetes cluster.
 
 ```mermaid
 mindmap
   root(clusters/local)
     apps
-      home
-        homebridge
-        waterstream
-        zigbee2MQTT
-      sample
-        red
-        blue
-        whoami
+      demo
+        emojivoto
+        online boutique
     charts
-      cert manager
-      cilium
-      cloudflare tunnel
-      grafana
-      nvidia device plugin
-      postgres
       redpanda
       sealed secrets
+      zilla
     manifests
       GatewayClass
       Gateway
       RuntimeClass
       StorageClass
     notifications
-      slack
-      webhooks
+      webhook receiver
 ```
 
-#### Build
-
-- [Densium APU](https://densium.net/products/densium-apu?Frontpanel=Dark+Walnut&Exterior=Black) 4L
-- [Noctua NF-A14 ULN](https://noctua.at/en/products/fan/nf-a14-uln) 140mm
-- [Pico PSU](https://turingpi.com/product/pico-psu/) 160w
-- 3x [Turing RK1](https://turingpi.com/product/turing-rk1) 8 cores /  32 GB / 6 TOPS
-- 1x [Nvidia Jetson Orin NX](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/#tech-specs) 8 cores /  16 GB / 100 TOPS
-- 4x [Samsung 970 EVO Plus NVMe M.2 SSD](https://www.samsung.com/us/computing/memory-storage/solid-state-drives/ssd-970-evo-plus-nvme-m-2-250gb-mz-v7s250b-am/) 250GB
-
-32 cores / 112 GB / 118 TOPS
-
-1TB storage
-
-<https://turingpi.com/>
+## Getting Started
 
 ### Kubernetes (via k0s)
 
@@ -67,12 +35,6 @@ An open-source system for automating deployment, scaling, and management of cont
 Used to **pull** repository changes into kubernetes clusters.
 
 <https://fluxcd.io/>
-
-### Cilium
-
-Used for providing, securing, and observing network connectivity between workloads, powered by eBPF.
-
-<https://cilium.io/>
 
 ### Brew
 
@@ -114,18 +76,6 @@ When spinning up the cluster for the first time, there are 3 primary steps.
       --private=false \
       --personal=true \
       --path=clusters/overlays/local
-    ```
-
-3. Install `cilium`
-
-    <https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/>
-
-    - [System Requirements](https://docs.cilium.io/en/stable/operations/system_requirements/#admin-system-reqs)
-    - [Rebuilding the Linux Kernel](https://gist.github.com/dudo/7d853fd54f2d3db6e5e44b8b59ae12d5)
-
-    ```sh
-    cilium install --version 1.14.2
-    cilium status --wait
     ```
 
 ### kubectl
