@@ -6,9 +6,6 @@
       },
       "fluxcd/tap": {
         "revision": "d24fcc5c2ff3c1890a620ffb4779f28dc82680fb"
-      },
-      "k0sproject/tap": {
-        "revision": "d32d935335779095a8638d8cc4cc4892cfb148d5"
       }
     },
     "brew": {
@@ -19,25 +16,6 @@
       "fluxcd/tap/flux": {
         "version": "2.1.1",
         "bottle": false
-      },
-      "k0sproject/tap/k0sctl": {
-        "version": "0.15.5",
-        "bottle": {
-          "rebuild": 0,
-          "root_url": "https://github.com/k0sproject/homebrew-tap/releases/download/k0sctl-0.15.5",
-          "files": {
-            "ventura": {
-              "cellar": ":any_skip_relocation",
-              "url": "https://github.com/k0sproject/homebrew-tap/releases/download/k0sctl-0.15.5/k0sctl-0.15.5.ventura.bottle.tar.gz",
-              "sha256": "34e307959d7561533847271f895108d99a24ede0f5ae4bf4f7d2e8826f872b41"
-            },
-            "x86_64_linux": {
-              "cellar": ":any_skip_relocation",
-              "url": "https://github.com/k0sproject/homebrew-tap/releases/download/k0sctl-0.15.5/k0sctl-0.15.5.x86_64_linux.bottle.tar.gz",
-              "sha256": "5d54cea284d31e387905cc062859dff1f206d3a8039fe84d4f15d98769f03d94"
-            }
-          }
-        }
       },
       "helm": {
         "version": "3.13.0",

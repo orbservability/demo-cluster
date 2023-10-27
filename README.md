@@ -24,12 +24,6 @@ mindmap
 
 ## Getting Started
 
-### Kubernetes (via k0s)
-
-An open-source system for automating deployment, scaling, and management of containerized applications.
-
-<https://k0sproject.io/>
-
 ### Flux
 
 Used to **pull** repository changes into kubernetes clusters.
@@ -54,17 +48,7 @@ brew bundle
 
 When spinning up the cluster for the first time, there are 3 primary steps.
 
-1. Install `k0s`
-
-    <https://docs.k0sproject.io/v1.28.2+k0s.0/k0sctl-install/>
-
-    ```sh
-    k0sctl apply --config ./clusters/overlays/local/k0s.yaml
-    k0sctl kubeconfig --config ./clusters/overlays/local/k0s.yaml
-    # add the output of this to ~/.kube/config
-    ```
-
-2. Bootstrap `flux`
+1. Bootstrap `flux`
 
     <https://fluxcd.io/flux/installation/bootstrap/github/>
 
@@ -130,18 +114,6 @@ data:
   my.file: ${encoded_string}
 EOF
 ```
-
-### Reset
-
-Tearing down the cluster is a 1 step process.
-
-1. Reset the cluster
-
-   <https://docs.k0sproject.io/v1.28.2+k0s.0/reset/>
-
-   ```sh
-   k0sctl reset --config ./clusters/overlays/local/k0s.yaml
-   ```
 
 ## Pertinent Sections
 
