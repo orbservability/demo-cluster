@@ -1,0 +1,27 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: online-boutique
+spec:
+  interval: 10m
+  url: https://github.com/GoogleCloudPlatform/microservices-demo
+  ref:
+    branch: main
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: online-boutique
+spec:
+  interval: 10m
+  sourceRef:
+    kind: GitRepository
+    name: online-boutique
+    namespace: flux-system
+  targetNamespace: online-boutique
+  path: ./kustomize
+  prune: true
+  wait: true
+  timeout: 5m
