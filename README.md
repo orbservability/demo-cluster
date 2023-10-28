@@ -10,6 +10,7 @@ mindmap
         emojivoto
         online boutique
     charts
+      cert manager
       redpanda
       sealed secrets
       zilla
@@ -22,7 +23,7 @@ mindmap
       webhook receiver
 ```
 
-## Getting Started
+## Setup
 
 ### Flux
 
@@ -48,7 +49,34 @@ Open source observability tool for Kubernetes applications. Uses eBPF to automat
 
 <https://docs.px.dev/about-pixie/what-is-pixie/>
 
-This takes advantage of some of the features of the linux kernel, and will not work in all Kubernetes environments. See [requirements](https://docs.px.dev/installing-pixie/requirements/). Minikube is supported, and automatically installed via the Brewfile.
+This takes advantage of some of the features of the linux kernel, and will not work in all Kubernetes environments. See [requirements](https://docs.px.dev/installing-pixie/requirements/).
+
+### Redpanda
+
+Kafka, but better.
+
+<https://redpanda.com/>
+
+### Minikube
+
+Local Kubernetes.
+
+<https://minikube.sigs.k8s.io/docs/>
+
+[Redpanda's recommended setup](https://docs.redpanda.com/current/deploy/deployment-option/self-hosted/kubernetes/local-guide/?tab=tabs-2-minikube)
+
+```sh
+minikube start --nodes 4 --cni=cilium
+
+kubectl taint node \
+  -l node-role.kubernetes.io/control-plane="" \
+    node-role.kubernetes.io/control-plane=:NoSchedule
+
+cilium install --version 1.14.3
+cilium status --wait
+
+kubectl get pods -A
+```
 
 ## Usage
 
