@@ -8,7 +8,6 @@ mindmap
     apps
       demo
         emojivoto
-        online boutique
     charts
       cert manager
       redpanda
