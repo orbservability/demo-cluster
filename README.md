@@ -42,25 +42,15 @@ This repo includes a collection of dependencies to install:
 brew bundle
 ```
 
+### Pixie
+
+Open source observability tool for Kubernetes applications. Uses eBPF to automatically capture telemetry data without the need for manual instrumentation.
+
+<https://docs.px.dev/about-pixie/what-is-pixie/>
+
+This takes advantage of some of the features of the linux kernel, and will not work in all environments. See [requirements](https://docs.px.dev/installing-pixie/requirements/).
+
 ## Usage
-
-### Bootstrap
-
-When spinning up the cluster for the first time, there are 3 primary steps.
-
-1. Bootstrap `flux`
-
-    <https://fluxcd.io/flux/installation/bootstrap/github/>
-
-    ```sh
-    flux bootstrap github \
-      --components-extra=image-reflector-controller,image-automation-controller \
-      --owner=dudo \
-      --repository=turing-pi \
-      --private=false \
-      --personal=true \
-      --path=clusters/overlays/local
-    ```
 
 ### kubectl
 
@@ -77,6 +67,18 @@ kubectl run busybox --image=busybox --restart=Never --rm -it -- sh
 ```
 
 ### flux
+
+If you're setting up a cluster for the first time, it'll need to be [bootstrapped](https://fluxcd.io/flux/installation/bootstrap/github/).
+
+```sh
+flux bootstrap github \
+  --components-extra=image-reflector-controller,image-automation-controller \
+  --token-auth \
+  --owner=orbservability \
+  --repository=demo-cluster \
+  --branch=main \
+  --path=clusters/overlays/local
+```
 
 <https://fluxcd.io/flux/cmd/>
 
