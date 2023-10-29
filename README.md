@@ -95,7 +95,7 @@ kubectl run busybox --image=busybox --restart=Never --rm -it -- sh
 
 ### flux
 
-If you're setting up a cluster for the first time, it'll need to be [bootstrapped](https://fluxcd.io/flux/installation/bootstrap/github/).
+If you're setting up a cluster for the first time, it'll need to be [bootstrapped](https://fluxcd.io/flux/installation/bootstrap/github/). Make sure you have the `GITHUB_TOKEN` env set.
 
 ```sh
 flux bootstrap github \
