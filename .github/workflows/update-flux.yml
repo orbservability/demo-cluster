@@ -36,7 +36,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git add .
           git commit -am "${{ steps.update.outputs.flux_version }}"
-          git push
+          git push -u origin HEAD
       - name: GitHub Pull Request
         env:
           GH_TOKEN: ${{ github.token }}
