@@ -35,7 +35,7 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           git add .
-          git commit -am "${{ steps.update.outputs.flux_version }}"
+          git commit -am "[${{ matrix.overlay }}] ${{ steps.update.outputs.flux_version }}"
           git push -u origin HEAD
       - name: GitHub Pull Request
         env:
