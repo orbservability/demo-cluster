@@ -14,15 +14,11 @@ jobs:
           - local
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Setup Flux CLI
         uses: fluxcd/flux2/action@main
-      - name: Configure Git
-        run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
       - name: Checkout branch
         env:
           BRANCH: update-flux-${{ matrix.overlay }}
@@ -36,9 +32,11 @@ jobs:
       - name: Commit
         continue-on-error: true
         run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
           git add .
           git commit -am "${{ steps.update.outputs.flux_version }}"
-          git push -u origin HEAD
+          git push
       - name: GitHub Pull Request
         env:
           GH_TOKEN: ${{ github.token }}
