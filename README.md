@@ -16,10 +16,7 @@ mindmap
     manifests
       GatewayClass
       Gateway
-      RuntimeClass
       StorageClass
-    notifications
-      webhook receiver
 ```
 
 ## Setup

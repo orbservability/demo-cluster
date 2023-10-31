@@ -6,4 +6,3 @@ resources:
   - manifests.yaml
   - charts.yaml
   - apps
-  # - notifications.yaml
