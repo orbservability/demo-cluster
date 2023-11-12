@@ -1,0 +1,5 @@
+---
+# deployKey:
+# clusterName:
+deployOLM: false
+pemMemoryLimit: 1Gi

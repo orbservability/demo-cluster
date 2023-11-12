@@ -3,8 +3,4 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: flux-system
 resources:
-  - jetstack.yaml
-  - pixie.yaml
-  - redpanda.yaml
-  - sealed-secrets.yaml
-  - zilla.yaml
+  - daemon-set.yaml # does this need to be a ds? or will the api fetch from all the nodes?

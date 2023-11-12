@@ -88,6 +88,8 @@ kubectl logs -n flux-system deploy/image-automation-controller
 
 kubectl run curl --image=curlimages/curl --restart=Never --rm -it -- sh
 kubectl run busybox --image=busybox --restart=Never --rm -it -- sh
+
+kubectl port-forward -n emojivoto service/web-svc 3000:80
 ```
 
 ### flux
