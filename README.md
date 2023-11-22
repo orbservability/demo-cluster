@@ -62,13 +62,17 @@ Local Kubernetes.
 [Redpanda's recommended setup](https://docs.redpanda.com/current/deploy/deployment-option/self-hosted/kubernetes/local-guide/?tab=tabs-2-minikube)
 
 ```sh
-minikube start --nodes 4 --cni=cilium
+# DRIVER
+# for linux, install https://minikube.sigs.k8s.io/docs/drivers/kvm2/
+minikube config set driver kvm2
+# for Intel Mac, install https://minikube.sigs.k8s.io/docs/drivers/hyperkit/
+minikube config set driver hyperkit
 
-kubectl taint node \
-  -l node-role.kubernetes.io/control-plane="" \
-    node-role.kubernetes.io/control-plane=:NoSchedule
+minikube start --nodes 4 --network-plugin=cni --cni=false
 
-cilium install --version 1.14.3
+kubectl taint node -l node-role.kubernetes.io/control-plane="" node-role.kubernetes.io/control-plane=:NoSchedule
+
+cilium install --version 1.14.4
 cilium status --wait
 
 kubectl get pods -A
