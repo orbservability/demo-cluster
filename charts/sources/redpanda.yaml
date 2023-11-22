@@ -15,5 +15,5 @@ metadata:
 spec:
   interval: 24h
   ref:
-    branch: main
+    branch: dev
   url: https://github.com/redpanda-data/redpanda
