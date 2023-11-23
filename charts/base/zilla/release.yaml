@@ -5,7 +5,7 @@ metadata:
   name: zilla
 spec:
   releaseName: zilla
-  targetNamespace: kube-system
+  targetNamespace: zilla
   chart:
     spec:
       chart: zilla
@@ -13,7 +13,7 @@ spec:
         kind: HelmRepository
         name: zilla
         namespace: flux-system
-      version: "^0.9.55"
+      version: "^0.9.58"
   interval: 12h
   install:
     createNamespace: true

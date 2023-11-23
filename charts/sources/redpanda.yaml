@@ -15,5 +15,5 @@ metadata:
 spec:
   interval: 24h
   ref:
-    branch: dev
+    branch: main
   url: https://github.com/redpanda-data/redpanda-operator
