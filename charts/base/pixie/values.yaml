@@ -3,3 +3,4 @@
 # clusterName:
 deployOLM: false
 pemMemoryLimit: 1Gi
+devCloudNamespace: plc

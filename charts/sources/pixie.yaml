@@ -5,4 +5,4 @@ metadata:
   name: pixie
 spec:
   interval: 24h
-  url: https://artifacts.px.dev/helm_charts/operator
+  url: https://artifacts.px.dev/helm_charts/vizier

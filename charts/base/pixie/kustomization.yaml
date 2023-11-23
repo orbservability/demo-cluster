@@ -5,7 +5,7 @@ namespace: flux-system
 resources:
   - release.yaml
 configMapGenerator:
-  - name: pixie-operator-values
+  - name: pixie-values
     files:
       - values.yaml=values.yaml
 components:

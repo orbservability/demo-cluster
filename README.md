@@ -10,13 +10,10 @@ mindmap
         emojivoto
     charts
       cert manager
-      redpanda
+      pixie
+      redpanda controller
       sealed secrets
       zilla
-    manifests
-      GatewayClass
-      Gateway
-      StorageClass
 ```
 
 ## Setup

@@ -2,13 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: pixie-operator
+  name: pixie
 spec:
-  releaseName: pixie-operator
+  releaseName: pixie
   targetNamespace: pl
   chart:
     spec:
-      chart: pixie-operator-chart
+      chart: vizier-chart
       sourceRef:
         kind: HelmRepository
         name: pixie
@@ -21,4 +21,4 @@ spec:
       retries: 3
   valuesFrom:
     - kind: ConfigMap
-      name: pixie-operator-values
+      name: pixie-values
