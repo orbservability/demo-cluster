@@ -7,7 +7,7 @@ resources:
   - release.yaml
   - redpanda.yaml
 configMapGenerator:
-  - name: redpanda-values
+  - name: redpanda-controller-values
     files:
       - values.yaml=values.yaml
 components:

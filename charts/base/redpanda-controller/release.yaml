@@ -2,9 +2,9 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: redpanda
+  name: redpanda-controller
 spec:
-  releaseName: redpanda
+  releaseName: redpanda-controller
   targetNamespace: redpanda
   chart:
     spec:
@@ -21,4 +21,4 @@ spec:
       retries: 3
   valuesFrom:
     - kind: ConfigMap
-      name: redpanda-values
+      name: redpanda-controller-values
