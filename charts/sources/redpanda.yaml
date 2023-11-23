@@ -11,9 +11,9 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
-  name: redpanda
+  name: redpanda-operator
 spec:
   interval: 24h
   ref:
     branch: dev
-  url: https://github.com/redpanda-data/redpanda
+  url: https://github.com/redpanda-data/redpanda-operator
