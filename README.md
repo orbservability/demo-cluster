@@ -125,22 +125,28 @@ flux reconcile kustomization charts
 <https://github.com/bitnami-labs/sealed-secrets>
 
 ```sh
-encoded_string=$(echo -n "This is a string" | base64)
-encoded_string=$(base64 <<EOF
-  This is a
-  multi-line string
-  that I want to encode.
+encoded_auth=$(echo -n "user:token" | base64)
+json_config=$(cat <<EOF
+  {
+    "auths": {
+      "ghcr.io": {
+        "auth": "$encoded_auth"
+      }
+    }
+  }
 EOF
 )
+encoded_config=$(echo -n "$json_config" | base64 -w 0)
 
 kubeseal --format=yaml <<EOF
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mysecret
-  namespace: whatever
+  name: container-registry-auth
+  namespace: orbservability
+type: kubernetes.io/dockerconfigjson
 data:
-  my.file: ${encoded_string}
+  .dockerconfigjson: $encoded_config
 EOF
 ```
 

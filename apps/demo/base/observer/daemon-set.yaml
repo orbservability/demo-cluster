@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: observer
-  namespace: orbservability
 spec:
   selector:
     matchLabels:
@@ -12,6 +11,8 @@ spec:
       labels:
         name: observer
     spec:
+      imagePullSecrets:
+        - name: container-registry-auth
       containers:
         - name: pixie
           image: ghcr.io/orbservability/pixie:202308171823
