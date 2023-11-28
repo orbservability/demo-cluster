@@ -1,18 +1,20 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: pixie-scraper
-  namespace: pixie-scraper
+  name: observer
+  namespace: orbservability
 spec:
   selector:
     matchLabels:
-      name: pixie-scraper
+      name: observer
   template:
     metadata:
       labels:
-        name: pixie-scraper
+        name: observer
     spec:
       containers:
-        - name: pixie-scraper
+        - name: pixie
+          image: TODO
+        - name: observer
           image: TODO
       priorityClassName: system-node-critical

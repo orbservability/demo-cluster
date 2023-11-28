@@ -8,9 +8,9 @@ mindmap
     apps
       demo
         emojivoto
+        observer
     charts
       cert manager
-      pixie
       redpanda controller
       sealed secrets
       zilla
