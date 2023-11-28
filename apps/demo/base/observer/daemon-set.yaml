@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: pixie
-          image: TODO
+          image: ghcr.io/orbservability/pixie:202308171823
         - name: observer
           image: ghcr.io/orbservability/observer:main-16a1386-1701151883
       priorityClassName: system-node-critical
