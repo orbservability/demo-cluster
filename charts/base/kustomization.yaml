@@ -5,6 +5,5 @@ resources:
   - ../sources
   - sealed-secrets
   - cert-manager
-  - pixie
   - redpanda-controller
   - zilla
