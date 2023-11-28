@@ -15,7 +15,10 @@ spec:
         - name: container-registry-auth
       containers:
         - name: pixie
-          image: ghcr.io/orbservability/pixie:202308171823
+          image: ghcr.io/orbservability/pixie:dffdb3b
+          securityContext:
+            privileged: true
         - name: observer
           image: ghcr.io/orbservability/observer:main-16a1386-1701151883
+      hostNetwork: true
       priorityClassName: system-node-critical
