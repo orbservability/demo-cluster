@@ -5,3 +5,10 @@ namespace: orbservability
 resources:
   - sealed-secret.yaml
   - daemon-set.yaml
+configMapGenerator:
+  - name: pxl-network-stats-cm
+    files:
+      - config.pxl=network-stats.pxl
+  - name: pxl-process-stats-cm
+    files:
+      - config.pxl=process-stats.pxl

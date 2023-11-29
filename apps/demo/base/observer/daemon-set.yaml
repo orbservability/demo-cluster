@@ -18,7 +18,22 @@ spec:
           image: ghcr.io/orbservability/pixie:6566889c-dffdb3b
           securityContext:
             privileged: true
-        - name: observer
-          image: ghcr.io/orbservability/observer:main-16a1386-1701151883
+        - name: observer-network-stats
+          image: ghcr.io/orbservability/observer:main-aea7b5d-1701225216
+          volumeMounts:
+            - name: network-stats-volume
+              mountPath: /usr/src/app/config
+        - name: observer-process-stats
+          image: ghcr.io/orbservability/observer:main-aea7b5d-1701225216
+          volumeMounts:
+            - name: process-stats-volume
+              mountPath: /usr/src/app/config
+      volumes:
+        - name: network-stats-volume
+          configMap:
+            name: pxl-network-stats-cm
+        - name: process-stats-volume
+          configMap:
+            name: pxl-process-stats-cm
       hostNetwork: true
       priorityClassName: system-node-critical
