@@ -12,3 +12,6 @@ configMapGenerator:
   - name: pxl-process-stats-cm
     files:
       - config.pxl=process-stats.pxl
+  - name: pxl-http-events-cm
+    files:
+      - config.pxl=http-events.pxl
