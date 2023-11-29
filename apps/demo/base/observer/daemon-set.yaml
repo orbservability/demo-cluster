@@ -15,7 +15,7 @@ spec:
         - name: container-registry-auth
       containers:
         - name: pixie
-          image: ghcr.io/orbservability/pixie:dffdb3
+          image: ghcr.io/orbservability/pixie:656685a4-dffdb3b
           securityContext:
             privileged: true
         - name: observer
