@@ -19,12 +19,12 @@ spec:
           securityContext:
             privileged: true
         - name: observer-network-stats
-          image: ghcr.io/orbservability/observer:main-a367dd9-1701234944
+          image: ghcr.io/orbservability/observer:main-4fc1d58-1701237509
           volumeMounts:
             - name: network-stats-volume
               mountPath: /usr/src/app/config
         - name: observer-process-stats
-          image: ghcr.io/orbservability/observer:main-a367dd9-1701234944
+          image: ghcr.io/orbservability/observer:main-4fc1d58-1701237509
           volumeMounts:
             - name: process-stats-volume
               mountPath: /usr/src/app/config
