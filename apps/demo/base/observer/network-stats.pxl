@@ -2,7 +2,4 @@ import px
 
 df = px.DataFrame(table='network_stats')
 
-# Limit to the first 10.
-df = df.head(10)
-
 px.display(df)
