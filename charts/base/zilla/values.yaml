@@ -1,3 +1,9 @@
+service:
+  type: ClusterIP
+  ports:
+    - name: web
+      port: 9090
+
 zilla.yaml: |
   name: async_cqrs
 
