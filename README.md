@@ -65,7 +65,7 @@ minikube config set driver kvm2
 # for Intel Mac, install https://minikube.sigs.k8s.io/docs/drivers/hyperkit/
 minikube config set driver hyperkit
 
-minikube start --nodes 4 --network-plugin=cni --cni=false
+minikube start --nodes 3 --network-plugin=cni --cni=false
 
 kubectl taint node -l node-role.kubernetes.io/control-plane="" node-role.kubernetes.io/control-plane=:NoSchedule
 
