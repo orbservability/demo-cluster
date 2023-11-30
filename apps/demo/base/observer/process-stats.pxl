@@ -1,8 +1,0 @@
-import px
-
-df = px.DataFrame(table='process_stats')
-
-# Grab the command line from the metadata.
-df.cmdline = px.upid_to_cmdline(df.upid)
-
-px.display(df)

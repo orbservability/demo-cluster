@@ -1,0 +1,34 @@
+import px
+
+# Define the query
+df = px.DataFrame(table='process_stats')
+
+# Filter out processes from containers
+df = df[df.ctx['container']]
+
+df.pod = df.apply(lambda row: {
+  'name': row.ctx['pod'],
+  'status':  row.pod_name_to_status(row.ctx['pod']),
+}, axis=1)
+
+df.container = df.apply(lambda row: {
+  'name': row.ctx['container'],
+  'status':  row.container_id_to_status(row.ctx['container_id']),
+}, axis=1)
+
+# Select desired columns
+df = df[['pod', 'container']]
+
+# Output the dataframe
+px.display(df)
+
+# {
+#   "pod": {
+#     "name": "example-pod",
+#     "status": "Running"
+#   },
+#   "container": {
+#     "name": "example-container",
+#     "status": "Running"
+#   }
+# }

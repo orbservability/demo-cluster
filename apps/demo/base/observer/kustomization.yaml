@@ -9,9 +9,9 @@ configMapGenerator:
   - name: pxl-network-stats-cm
     files:
       - config.pxl=network-stats.pxl
-  - name: pxl-process-stats-cm
+  - name: pxl-kubernetes-stats-cm
     files:
-      - config.pxl=process-stats.pxl
+      - config.pxl=kubernetes-stats.pxl
   - name: pxl-http-events-cm
     files:
       - config.pxl=http-events.pxl
