@@ -21,11 +21,34 @@ df.kubernetes_container = df.ctx['container']
 
 # Select desired columns
 selected_columns = [
-  'time', 'cmdline', 'upid', 'latency', 'role', 'boundary', 'major_version', 'minor_version', 'trace_role',
-  'req_method', 'req_path', 'remote_addr', 'remote_port', 'remote_svc', 'resp_status', 'resp_message',
+  'time', 'cmdline', 'upid', 'latency', 'major_version', 'minor_version', 'trace_role',
+  'req_method', 'remote_svc', 'req_path', 'remote_addr', 'remote_port', 'resp_status', 'resp_message',
   'kubernetes_namespace', 'kubernetes_service', 'kubernetes_host', 'kubernetes_node', 'kubernetes_pod', 'kubernetes_container',
 ]
 df = df[selected_columns]
 
 # Output the dataframe
 px.display(df)
+
+# {
+#   "time": "1701375839414726144",
+#   "cmdline": "/usr/bin/python3 -m http.server",
+#   "upid": "12345678901234567890123456789012345678",
+#   "latency": 200,
+#   "major_version": 1,
+#   "minor_version": 1,
+#   "trace_role": 2,
+#   "req_method": "GET",
+#   "req_path": "/api/data",
+#   "remote_svc": "",
+#   "remote_addr": "192.168.1.100",
+#   "remote_port": 8080,
+#   "resp_status": 200,
+#   "resp_message": "OK",
+#   "kubernetes_namespace": "default",
+#   "kubernetes_service": "web-service",
+#   "kubernetes_host": "node-1",
+#   "kubernetes_node": "node-1.cluster.local",
+#   "kubernetes_pod": "web-pod-1234",
+#   "kubernetes_container": "web-container"
+# }
