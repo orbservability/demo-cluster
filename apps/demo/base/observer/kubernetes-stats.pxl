@@ -4,7 +4,7 @@ import px
 df = px.DataFrame(table='process_stats')
 
 # Filter out processes from containers
-df = df[df.ctx['container']]
+df = df[df.ctx['container_id']]
 
 df.pod = df.apply(lambda row: {
   'name': row.ctx['pod'],
