@@ -16,6 +16,7 @@ df.boundary = df.remote_addr.map(lambda x: 'internal' if px.ip_to_service_id(x) 
 # Concatenate major and minor versions
 df.http_version = df.major_version.map(str) + '.' + df.minor_version.map(str)
 
+# Extract Kubernetes context
 df.kubernetes_namespace = df.ctx['namespace']
 df.kubernetes_service = df.ctx['service']
 df.kubernetes_host = df.ctx['host']
