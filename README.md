@@ -113,7 +113,9 @@ flux bootstrap github \
 flux get all -A
 
 flux suspend image update my-service
+flux suspend hr my-chart
 flux resume image update my-service
+flux resume hr my-chart
 
 flux reconcile source git flux-system
 flux reconcile kustomization flux-system
