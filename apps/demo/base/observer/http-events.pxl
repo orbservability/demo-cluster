@@ -10,11 +10,11 @@ df.cmdline = px.upid_to_cmdline(df.upid)
 df.time = df.time_
 
 # Determine http role and boundary
-# df.role = df.trace_role.map(lambda x: 'client' if x == 1 else 'server')
-# df.boundary = df.remote_addr.map(lambda x: 'internal' if px.ip_to_service_id(x) else 'external')
+df.role = df.trace_role.map(lambda x: 'client' if x == 1 else 'server')
+df.boundary = df.remote_addr.map(lambda x: 'internal' if px.ip_to_service_id(x) else 'external')
 
 # Concatenate major and minor versions
-# df.http_version = df.major_version.map(str) + '.' + df.minor_version.map(str)
+df.http_version = df.major_version.map(str) + '.' + df.minor_version.map(str)
 
 df.kubernetes_namespace = df.ctx['namespace']
 df.kubernetes_service = df.ctx['service']
@@ -25,7 +25,7 @@ df.kubernetes_container = df.ctx['container']
 
 # Select desired columns
 selected_columns = [
-  'time', 'cmdline', 'upid', 'latency',
+  'time', 'cmdline', 'upid', 'latency', 'role', 'boundary', 'http_version',
   'req_method', 'req_path', 'remote_addr', 'remote_port', 'resp_status', 'resp_message',
   'kubernetes_namespace', 'kubernetes_service', 'kubernetes_host' 'kubernetes_node', 'kubernetes_pod', 'kubernetes_container',
 ]
