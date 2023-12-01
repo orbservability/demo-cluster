@@ -17,8 +17,8 @@ spec:
         - name: pixie
           image: ghcr.io/orbservability/pixie:656925de-dffdb3b
           env:
-            - name: PL_TABLE_STORE_HTTP_EVENTS_PERCENT
-              value: "100"
+            # - name: PL_TABLE_STORE_HTTP_EVENTS_PERCENT
+            #   value: "100"
             # - name: PL_TABLE_STORE_DATA_LIMIT_MB
             #   value: "2048"
           securityContext:
