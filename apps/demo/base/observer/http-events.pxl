@@ -6,15 +6,10 @@ df = px.DataFrame(table='http_events')
 # Grab the command line from the metadata
 df.cmdline = px.upid_to_cmdline(df.upid)
 
-# Rename 'time_' to 'time'
+# Rename attributes
 df.time = df.time_
 
-# Determine http role and boundary
-df.role = df.trace_role.map(lambda x: 'client' if x == 1 else 'server')
-df.boundary = df.remote_addr.map(lambda x: 'internal' if px.ip_to_service_id(x) else 'external')
-
-# Concatenate major and minor versions
-df.http_version = df.major_version.map(str) + '.' + df.minor_version.map(str)
+df.remote_svc = px.service_id_to_service_name(px.ip_to_service_id(df.remote_addr))
 
 # Extract Kubernetes context
 df.kubernetes_namespace = df.ctx['namespace']
@@ -26,8 +21,8 @@ df.kubernetes_container = df.ctx['container']
 
 # Select desired columns
 selected_columns = [
-  'time', 'cmdline', 'upid', 'latency', 'role', 'boundary', 'http_version',
-  'req_method', 'req_path', 'remote_addr', 'remote_port', 'resp_status', 'resp_message',
+  'time', 'cmdline', 'upid', 'latency', 'role', 'boundary', 'major_version', 'minor_version', 'trace_role',
+  'req_method', 'req_path', 'remote_addr', 'remote_port', 'remote_svc', 'resp_status', 'resp_message',
   'kubernetes_namespace', 'kubernetes_service', 'kubernetes_host', 'kubernetes_node', 'kubernetes_pod', 'kubernetes_container',
 ]
 df = df[selected_columns]
