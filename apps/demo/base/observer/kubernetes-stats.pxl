@@ -4,7 +4,7 @@ import px
 df = px.DataFrame(table='process_stats')
 
 # Filter out processes from containers
-df = df[df.ctx['container_id'] != '']
+df = df[df.ctx['container'] != '']
 
 df.pod_name = df.ctx['pod']
 df.pod_status = px.pod_name_to_status(df.ctx['pod'])
@@ -20,7 +20,16 @@ px.display(df)
 
 # {
 #   "pod_name": "example-pod",
-#   "pod_status": "Running",
+#   "pod_status": {
+#     "state":"Unknown",
+#     "message":"",
+#     "reason":""
+#   },
 #   "container_name": "example-container",
-#   "container_status": "Running"
+#   "container_status": {
+#     "phase":"Unknown",
+#     "message":"",
+#     "reason":"",
+#     "ready":false
+#   }
 # }
