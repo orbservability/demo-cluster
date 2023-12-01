@@ -7,8 +7,15 @@ resources:
   - redpanda.yaml
 configMapGenerator:
   - name: redpanda-controller-values
-    namespace: flux-system
     files:
       - values.yaml=values.yaml
 components:
   - ../../components/configurations
+transformers:
+  - |-
+    apiVersion: builtin
+    kind: NamespaceTransformer
+    metadata:
+      name: redpanda-ns-ts
+      namespace: flux-system
+    unsetOnly: true
