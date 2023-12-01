@@ -15,7 +15,7 @@ spec:
         - name: container-registry-auth
       containers:
         - name: pixie
-          image: ghcr.io/orbservability/pixie:6566889c-dffdb3b
+          image: ghcr.io/orbservability/pixie:656925de-dffdb3b
           env:
             - name: PL_STIRLING_SOURCES
               value: "kAll"
