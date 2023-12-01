@@ -15,7 +15,7 @@ spec:
         - name: container-registry-auth
       containers:
         - name: pixie
-          image: ghcr.io/orbservability/pixie:656925de-dffdb3b
+          image: ghcr.io/orbservability/pixie:656a3ac6-20-dffdb3b
           # env:
             # - name: PL_TABLE_STORE_HTTP_EVENTS_PERCENT
             #   value: "100"
