@@ -15,14 +15,21 @@ spec:
         - name: container-registry-auth
       containers:
         - name: pixie
-          image: ghcr.io/orbservability/pixie:656a3ac6-20-dffdb3b
-          # env:
+          image: ghcr.io/orbservability/pixie:656925de-dffdb3b
+          env:
+            - name: PL_HOST_PATH
+              value: /host
             # - name: PL_TABLE_STORE_HTTP_EVENTS_PERCENT
             #   value: "100"
             # - name: PL_TABLE_STORE_DATA_LIMIT_MB
             #   value: "2048"
           securityContext:
             privileged: true
+          volumeMounts:
+            - name: sys-volume
+              mountPath: /sys
+            - name: root-volume
+              mountPath: /host
         - name: observer-network-stats
           image: ghcr.io/orbservability/observer:main-adfcd1a-1701284908
           volumeMounts:
@@ -39,6 +46,14 @@ spec:
             - name: http-events-volume
               mountPath: /usr/src/app/config
       volumes:
+        - name: root-volume
+          hostPath:
+            path: /
+            type: Directory
+        - name: sys-volume
+          hostPath:
+            path: /sys
+            type: Directory
         - name: network-stats-volume
           configMap:
             name: pxl-network-stats-cm
