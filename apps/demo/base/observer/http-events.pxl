@@ -1,100 +1,25 @@
-# import px
-
-# K8S_CTX = ['namespace', 'service', 'host', 'node', 'pod', 'container']
-
-# # Define the query
-# df = px.DataFrame(table='http_events')
-
-# # Grab the command line from the metadata.
-# df.cmdline = px.upid_to_cmdline(df.upid)
-
-# df.rename(columns={'time_': 'time'}, inplace=True)
-
-# df.role = df.trace_role.apply(lambda x: 'client' if x == 1 else 'server')
-# df.boundary = df.remote_addr.apply(lambda x: 'internal' if px.ip_to_service_id(x) else 'external')
-# df.version = df.apply(lambda row: f"{row['major_version']}.{row['minor_version']}", axis=1)
-# df.http = df.apply(lambda row: {
-#   'version': row['version'],
-#   'role': row['role'],
-#   'boundary': row['boundary'],
-# }, axis=1)
-
-# df.request = df.apply(lambda row: {
-#   'method': row['req_method'],
-#   'path': row['req_path'], # might need to strip anything after [?#]
-#   'remote': {
-#     'address': row['remote_addr'],
-#     'port': row['remote_port'],
-#   },
-# }, axis=1)
-
-# df.response = df.apply(lambda row: {
-#   'status': row['resp_status'],
-#   'message': row['resp_message'],
-# }, axis=1)
-
-# df.kubernetes = df.apply(lambda row: {key: row.ctx[key] for key in K8S_CTX if key in row.ctx}, axis=1)
-
-# # Select desired columns
-# df = df[['time', 'cmdline', 'upid', 'latency', 'http', 'request', 'response', 'kubernetes']]
-
-# # Output the dataframe
-# px.display(df)
-
-# {
-#   "time": "1701375839414726144",
-#   "cmdline": "shell",
-#   "upid": "12345678901234567890123456789012345678",
-#   "latency": 100,
-#   "http": {
-#     "version": "1.1",
-#     "role": "server",
-#     "boundary": "internal"
-#   },
-#   "request": {
-#     "method": "POST",
-#     "path": "/api/data",
-#     "remote": {
-#       "address": "192.168.1.1",
-#       "port": 8080
-#     }
-#   },
-#   "response": {
-#     "status": 200,
-#     "message": "OK"
-#   },
-#   "kubernetes": {
-#     "namespace": "example-namespace",
-#     "service": "example-service",
-#     "host": "example-host",
-#     "node": "example-node",
-#     "pod": "example-pod",
-#     "container": "example-container"
-#   }
-# }
-
 import px
 
 # Define the query
 df = px.DataFrame(table='http_events')
 
 # Grab the command line from the metadata
-df.cmdline = px.upid_to_cmdline(df.upid)
+df['cmdline'] = df['upid'].map(lambda upid: px.upid_to_cmdline(upid))
 
 # Rename 'time_' to 'time'
-df.time = df.time_
+df['time'] = df['time_']
 
 # Determine role and boundary
-df.role = df.trace_role.map(lambda x: 'client' if x == 1 else 'server')
-df.boundary = df.remote_addr.map(lambda x: 'internal' if px.ip_to_service_id(x) else 'external')
+df['role'] = df['trace_role'].map(lambda x: 'client' if x == 1 else 'server')
+df['boundary'] = df['remote_addr'].map(lambda x: 'internal' if px.ip_to_service_id(x) else 'external')
 
 # Concatenate major and minor versions
-df.http_version = df.major_version.map(str) + '.' + df.minor_version.map(str)
+df['http_version'] = df['major_version'].map(str) + '.' + df['minor_version'].map(str)
 
 # Extract Kubernetes context
 k8s_ctx = ['namespace', 'service', 'host', 'node', 'pod', 'container']
 for key in k8s_ctx:
-    df[f'kubernetes_{key}'] = df.ctx[key]
+    df[f'kubernetes_{key}'] = df['ctx'][key]
 
 # Select desired columns
 selected_columns = ['time', 'cmdline', 'upid', 'latency', 'http_version', 'role', 'boundary',
