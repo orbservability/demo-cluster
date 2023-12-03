@@ -4,16 +4,13 @@ Flux driven kubernetes cluster.
 
 ```mermaid
 mindmap
-  root(clusters/local)
+  root(clusters)
     apps
       demo
         emojivoto
         observer
     charts
-      cert manager
-      redpanda controller
       sealed secrets
-      zilla
 ```
 
 ## Setup
@@ -44,19 +41,11 @@ Open source observability tool for Kubernetes applications. Uses eBPF to automat
 
 This takes advantage of some of the features of the linux kernel, and will not work in all Kubernetes environments. See [requirements](https://docs.px.dev/installing-pixie/requirements/).
 
-### Redpanda
-
-Kafka, but better.
-
-<https://redpanda.com/>
-
 ### Minikube
 
 Local Kubernetes.
 
 <https://minikube.sigs.k8s.io/docs/>
-
-[Redpanda's recommended setup](https://docs.redpanda.com/current/deploy/deployment-option/self-hosted/kubernetes/local-guide/?tab=tabs-2-minikube)
 
 ```sh
 # DRIVER
@@ -157,5 +146,3 @@ EOF
 - [Apps](./apps)
 - [Charts](./charts)
 - [Clusters](./clusters)
-- [Manifests](./manifests)
-- [Notifications](./notifications)
