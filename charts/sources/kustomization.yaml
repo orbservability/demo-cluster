@@ -3,7 +3,4 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: flux-system
 resources:
-  - jetstack.yaml
-  - redpanda.yaml
   - sealed-secrets.yaml
-  - zilla.yaml

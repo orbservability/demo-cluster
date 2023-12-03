@@ -4,6 +4,3 @@ kind: Kustomization
 resources:
   - ../sources
   - sealed-secrets
-  - cert-manager
-  - redpanda-controller
-  - zilla
