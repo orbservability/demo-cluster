@@ -22,7 +22,7 @@ df.kubernetes_container = df.ctx['container']
 # Select desired columns
 selected_columns = [
   'time', 'cmdline', 'upid', 'latency', 'major_version', 'minor_version', 'trace_role',
-  'req_method', 'remote_svc', 'req_path', 'remote_addr', 'remote_port', 'resp_status', 'resp_message',
+  'req_method', 'req_path', 'remote_svc', 'remote_addr', 'remote_port', 'resp_status', 'resp_message',
   'kubernetes_namespace', 'kubernetes_service', 'kubernetes_host', 'kubernetes_node', 'kubernetes_pod', 'kubernetes_container',
 ]
 df = df[selected_columns]
