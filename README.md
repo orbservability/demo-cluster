@@ -11,6 +11,8 @@ mindmap
         observer
     charts
       sealed secrets
+    manifests
+      storage class
 ```
 
 ## Setup
@@ -41,28 +43,47 @@ Open source observability tool for Kubernetes applications. Uses eBPF to automat
 
 This takes advantage of some of the features of the linux kernel, and will not work in all Kubernetes environments. See [requirements](https://docs.px.dev/installing-pixie/requirements/).
 
-### Minikube
+## Installation
 
-Local Kubernetes.
+### Bootstrap
 
-<https://minikube.sigs.k8s.io/docs/>
+When spinning up the cluster for the first time, it'll need to be [bootstrapped](https://fluxcd.io/flux/installation/bootstrap/github/). Make sure you have the `GITHUB_TOKEN` env set.
 
-```sh
-# DRIVER
-# for linux, install https://minikube.sigs.k8s.io/docs/drivers/kvm2/
-minikube config set driver kvm2
-# for Intel Mac, install https://minikube.sigs.k8s.io/docs/drivers/hyperkit/
-minikube config set driver hyperkit
+1. Install `k0s`
 
-minikube start --nodes 3 --network-plugin=cni --cni=false
+    <https://docs.k0sproject.io/v1.28.2+k0s.0/k0sctl-install/>
 
-kubectl taint node -l node-role.kubernetes.io/control-plane="" node-role.kubernetes.io/control-plane=:NoSchedule
+    ```sh
+    k0sctl apply --config ./clusters/overlays/local/k0s.yaml
+    k0sctl kubeconfig --config ./clusters/overlays/local/k0s.yaml
+    # add the output of this to ~/.kube/config
+    ```
 
-cilium install --version 1.14.4
-cilium status --wait
+2. Bootstrap `flux`
 
-kubectl get pods -A
-```
+    <https://fluxcd.io/flux/installation/bootstrap/github/>
+
+    ```sh
+    flux bootstrap github \
+      --components-extra=image-reflector-controller,image-automation-controller \
+      --token-auth \
+      --owner=orbservability \
+      --repository=demo-cluster \
+      --branch=main \
+      --path=clusters/overlays/local
+    ```
+
+3. Install `cilium`
+
+    <https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/>
+
+    - [System Requirements](https://docs.cilium.io/en/stable/operations/system_requirements/#admin-system-reqs)
+    - [Rebuilding the Linux Kernel](https://gist.github.com/dudo/7d853fd54f2d3db6e5e44b8b59ae12d5)
+
+    ```sh
+    cilium install --version 1.14.4
+    cilium status --wait
+    ```
 
 ## Usage
 
@@ -83,18 +104,6 @@ kubectl port-forward -n emojivoto service/web-svc 3000:80
 ```
 
 ### flux
-
-If you're setting up a cluster for the first time, it'll need to be [bootstrapped](https://fluxcd.io/flux/installation/bootstrap/github/). Make sure you have the `GITHUB_TOKEN` env set.
-
-```sh
-flux bootstrap github \
-  --components-extra=image-reflector-controller,image-automation-controller \
-  --token-auth \
-  --owner=orbservability \
-  --repository=demo-cluster \
-  --branch=main \
-  --path=clusters/overlays/local
-```
 
 <https://fluxcd.io/flux/cmd/>
 

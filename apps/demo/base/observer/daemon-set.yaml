@@ -26,6 +26,8 @@ spec:
           securityContext:
             privileged: true
           volumeMounts:
+            # - mountPath: /pixie
+            #   name: storage
             - name: sys-volume
               mountPath: /sys
             - name: root-volume
@@ -46,6 +48,9 @@ spec:
             - name: http-events-volume
               mountPath: /usr/src/app/config
       volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: local-pvc
         - name: root-volume
           hostPath:
             path: /
