@@ -9,7 +9,7 @@ df.cmdline = px.upid_to_cmdline(df.upid)
 # Rename attributes
 df.time = df.time_
 
-df.remote_svc = px.service_id_to_service_name(px.ip_to_service_id(df.remote_addr))
+df.is_server_side_tracing = df.trace_role == 2
 
 # Extract Kubernetes context
 df.kubernetes_namespace = df.ctx['namespace']
@@ -19,11 +19,16 @@ df.kubernetes_node = df.ctx['node']
 df.kubernetes_pod = df.ctx['pod']
 df.kubernetes_container = df.ctx['container']
 
+# Get the destination Kubernetes resources from the connection's remote address
+df.kubernetes_remote_service = px.service_id_to_service_name(px.ip_to_service_id(df.remote_addr))
+df.kubernetes_remote_pod = px.pod_id_to_pod_name(px.ip_to_pod_id(df.remote_addr))
+
 # Select desired columns
 selected_columns = [
-  'time', 'cmdline', 'upid', 'latency', 'major_version', 'minor_version', 'trace_role',
-  'req_method', 'req_path', 'remote_svc', 'remote_addr', 'remote_port', 'resp_status', 'resp_message',
+  'time', 'cmdline', 'upid', 'latency', 'major_version', 'minor_version', 'is_server_side_tracing',
+  'req_method', 'req_path', 'remote_addr', 'remote_port', 'resp_status', 'resp_message',
   'kubernetes_namespace', 'kubernetes_service', 'kubernetes_host', 'kubernetes_node', 'kubernetes_pod', 'kubernetes_container',
+  'kubernetes_remote_service', 'kubernetes_remote_pod'
 ]
 df = df[selected_columns]
 
@@ -37,10 +42,9 @@ px.display(df)
 #   "latency": 200,
 #   "major_version": 1,
 #   "minor_version": 1,
-#   "trace_role": 2,
+#   "is_server_side_tracing": true,
 #   "req_method": "GET",
 #   "req_path": "/api/data",
-#   "remote_svc": "",
 #   "remote_addr": "192.168.1.100",
 #   "remote_port": 8080,
 #   "resp_status": 200,
@@ -51,4 +55,6 @@ px.display(df)
 #   "kubernetes_node": "node-1.cluster.local",
 #   "kubernetes_pod": "web-pod-1234",
 #   "kubernetes_container": "web-container"
+#   "kubernetes_remote_service": "",
+#   "kubernetes_remote_pod": ""
 # }
