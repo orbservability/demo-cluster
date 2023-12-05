@@ -33,17 +33,17 @@ spec:
             - name: root-volume
               mountPath: /host
         - name: observer-network-stats
-          image: ghcr.io/orbservability/observer:main-adfcd1a-1701284908
+          image: ghcr.io/orbservability/observer:main-55644ec-1701742560
           volumeMounts:
             - name: network-stats-volume
               mountPath: /usr/src/app/config
         - name: observer-kubernetes-stats
-          image: ghcr.io/orbservability/observer:main-adfcd1a-1701284908
+          image: ghcr.io/orbservability/observer:main-55644ec-1701742560
           volumeMounts:
             - name: kubernetes-stats-volume
               mountPath: /usr/src/app/config
         - name: observer-http-events
-          image: ghcr.io/orbservability/observer:main-adfcd1a-1701284908
+          image: ghcr.io/orbservability/observer:main-55644ec-1701742560
           volumeMounts:
             - name: http-events-volume
               mountPath: /usr/src/app/config
