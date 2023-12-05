@@ -9,7 +9,11 @@ df.cmdline = px.upid_to_cmdline(df.upid)
 # Rename attributes
 df.time = df.time_
 
+# Remove enum
 df.is_server_side_tracing = df.trace_role == 2
+
+# Split 'req_path' on '?' and take only the path
+df.req_path = df['req_path'].map(lambda path: path.split('?')[0].split('#')[0])
 
 # Extract Kubernetes context
 df.kubernetes_namespace = df.ctx['namespace']
