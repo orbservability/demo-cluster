@@ -11,6 +11,8 @@ spec:
         port: 22
         keyPath: ~/.ssh/id_rsa
       role: single
+      installFlags:
+        - --labels="storage-type=local"
   k0s:
     version: 1.28.4+k0s.0
     dynamicConfig: false
