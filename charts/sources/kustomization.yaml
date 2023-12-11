@@ -4,4 +4,4 @@ kind: Kustomization
 namespace: flux-system
 resources:
   - sealed-secrets.yaml
-  # - orbservability.yaml
+  - orbservability.yaml
