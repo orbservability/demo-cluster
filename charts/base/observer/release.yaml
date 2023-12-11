@@ -1,0 +1,23 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: observer
+spec:
+  releaseName: observer
+  targetNamespace: orbservability
+  chart:
+    spec:
+      chart: observer
+      sourceRef:
+        kind: HelmRepository
+        name: orbservability
+        namespace: flux-system
+      version: "^0.1.1"
+  interval: 12h
+  install:
+    remediation:
+      retries: 3
+  valuesFrom:
+    - kind: ConfigMap
+      name: observer-values

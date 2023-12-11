@@ -1,0 +1,9 @@
+---
+pixie:
+  scripts:
+    - name: http-events
+      file: files/http-events.pxl
+    - name: kubernetes-stats
+      file: files/kubernetes-stats.pxl
+    - name: network-stats
+      file: files/network-stats.pxl
