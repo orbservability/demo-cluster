@@ -8,9 +8,9 @@ mindmap
     apps
       demo
         emojivoto
-        observer
     charts
       sealed secrets
+      orbservability observer
     manifests
       storage class
 ```
