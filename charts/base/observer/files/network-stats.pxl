@@ -1,5 +1,0 @@
-import px
-
-df = px.DataFrame(table='network_stats')
-
-px.display(df)
