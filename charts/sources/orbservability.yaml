@@ -5,4 +5,5 @@ metadata:
   name: orbservability
 spec:
   interval: 24h
-  url: https://orbservability.github.io/helm-charts/
+  type: oci
+  url: oci://ghcr.io/orbservability/charts
