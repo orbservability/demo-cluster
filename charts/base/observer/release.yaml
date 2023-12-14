@@ -2,18 +2,18 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: cert-manager
+  name: observer
 spec:
-  releaseName: cert-manager
-  targetNamespace: cert-manager
+  releaseName: observer
+  targetNamespace: orbservability
   chart:
     spec:
-      chart: cert-manager
+      chart: observer
       sourceRef:
         kind: HelmRepository
-        name: jetstack
+        name: orbservability
         namespace: flux-system
-      version: "^1.13.0"
+      version: "^0.1.1"
   interval: 12h
   install:
     createNamespace: true
@@ -21,4 +21,4 @@ spec:
       retries: 3
   valuesFrom:
     - kind: ConfigMap
-      name: cert-manager-values
+      name: observer-values

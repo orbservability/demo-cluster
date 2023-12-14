@@ -4,22 +4,15 @@ Flux driven kubernetes cluster.
 
 ```mermaid
 mindmap
-  root(clusters/local)
+  root(clusters)
     apps
       demo
         emojivoto
     charts
-      cert manager
-      redpanda
       sealed secrets
-      zilla
+      orbservability observer
     manifests
-      GatewayClass
-      Gateway
-      RuntimeClass
-      StorageClass
-    notifications
-      webhook receiver
+      storage class
 ```
 
 ## Setup
@@ -50,32 +43,47 @@ Open source observability tool for Kubernetes applications. Uses eBPF to automat
 
 This takes advantage of some of the features of the linux kernel, and will not work in all Kubernetes environments. See [requirements](https://docs.px.dev/installing-pixie/requirements/).
 
-### Redpanda
+## Installation
 
-Kafka, but better.
+### Bootstrap
 
-<https://redpanda.com/>
+When spinning up the cluster for the first time, it'll need to be [bootstrapped](https://fluxcd.io/flux/installation/bootstrap/github/). Make sure you have the `GITHUB_TOKEN` env set.
 
-### Minikube
+1. Install `k0s`
 
-Local Kubernetes.
+    <https://docs.k0sproject.io/v1.28.2+k0s.0/k0sctl-install/>
 
-<https://minikube.sigs.k8s.io/docs/>
+    ```sh
+    k0sctl apply --config ./clusters/overlays/local/k0s.yaml
+    k0sctl kubeconfig --config ./clusters/overlays/local/k0s.yaml
+    # add the output of this to ~/.kube/config
+    ```
 
-[Redpanda's recommended setup](https://docs.redpanda.com/current/deploy/deployment-option/self-hosted/kubernetes/local-guide/?tab=tabs-2-minikube)
+2. Bootstrap `flux`
 
-```sh
-minikube start --nodes 4 --cni=cilium
+    <https://fluxcd.io/flux/installation/bootstrap/github/>
 
-kubectl taint node \
-  -l node-role.kubernetes.io/control-plane="" \
-    node-role.kubernetes.io/control-plane=:NoSchedule
+    ```sh
+    flux bootstrap github \
+      --components-extra=image-reflector-controller,image-automation-controller \
+      --token-auth \
+      --owner=orbservability \
+      --repository=demo-cluster \
+      --branch=main \
+      --path=clusters/overlays/local
+    ```
 
-cilium install --version 1.14.3
-cilium status --wait
+3. Install `cilium`
 
-kubectl get pods -A
-```
+    <https://docs.cilium.io/en/stable/gettingstarted/k8s-install-default/>
+
+    - [System Requirements](https://docs.cilium.io/en/stable/operations/system_requirements/#admin-system-reqs)
+    - [Rebuilding the Linux Kernel](https://gist.github.com/dudo/7d853fd54f2d3db6e5e44b8b59ae12d5)
+
+    ```sh
+    cilium install --version 1.14.4
+    cilium status --wait
+    ```
 
 ## Usage
 
@@ -91,21 +99,11 @@ kubectl logs -n flux-system deploy/image-automation-controller
 
 kubectl run curl --image=curlimages/curl --restart=Never --rm -it -- sh
 kubectl run busybox --image=busybox --restart=Never --rm -it -- sh
+
+kubectl port-forward -n emojivoto service/web-svc 3000:80
 ```
 
 ### flux
-
-If you're setting up a cluster for the first time, it'll need to be [bootstrapped](https://fluxcd.io/flux/installation/bootstrap/github/). Make sure you have the `GITHUB_TOKEN` env set.
-
-```sh
-flux bootstrap github \
-  --components-extra=image-reflector-controller,image-automation-controller \
-  --token-auth \
-  --owner=orbservability \
-  --repository=demo-cluster \
-  --branch=main \
-  --path=clusters/overlays/local
-```
 
 <https://fluxcd.io/flux/cmd/>
 
@@ -113,7 +111,9 @@ flux bootstrap github \
 flux get all -A
 
 flux suspend image update my-service
+flux suspend hr my-chart
 flux resume image update my-service
+flux resume hr my-chart
 
 flux reconcile source git flux-system
 flux reconcile kustomization flux-system
@@ -125,22 +125,28 @@ flux reconcile kustomization charts
 <https://github.com/bitnami-labs/sealed-secrets>
 
 ```sh
-encoded_string=$(echo -n "This is a string" | base64)
-encoded_string=$(base64 <<EOF
-  This is a
-  multi-line string
-  that I want to encode.
+encoded_auth=$(echo -n "user:token" | base64)
+json_config=$(cat <<EOF
+  {
+    "auths": {
+      "ghcr.io": {
+        "auth": "$encoded_auth"
+      }
+    }
+  }
 EOF
 )
+encoded_config=$(echo -n "$json_config" | base64 -w 0)
 
 kubeseal --format=yaml <<EOF
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mysecret
-  namespace: whatever
+  name: container-registry-auth
+  namespace: orbservability
+type: kubernetes.io/dockerconfigjson
 data:
-  my.file: ${encoded_string}
+  .dockerconfigjson: $encoded_config
 EOF
 ```
 
@@ -149,5 +155,3 @@ EOF
 - [Apps](./apps)
 - [Charts](./charts)
 - [Clusters](./clusters)
-- [Manifests](./manifests)
-- [Notifications](./notifications)

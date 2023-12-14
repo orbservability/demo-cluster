@@ -11,9 +11,9 @@ spec:
       chart: sealed-secrets
       sourceRef:
         kind: HelmRepository
-        name: sealed-secrets
+        name: bitnami
         namespace: flux-system
-      version: "^2.12.0"
+      version: "^1.6.2"
   interval: 12h
   install:
     remediation:

@@ -1,8 +1,0 @@
----
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: OCIRepository
-metadata:
-  name: zilla
-spec:
-  interval: 24h
-  url: oci://ghcr.io/aklivity/charts/zilla

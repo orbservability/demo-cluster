@@ -5,7 +5,7 @@ namespace: flux-system
 resources:
   - release.yaml
 configMapGenerator:
-  - name: cert-manager-values
+  - name: observer-values
     files:
       - values.yaml=values.yaml
 components:

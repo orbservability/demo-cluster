@@ -1,0 +1,49 @@
+apiVersion: k0sctl.k0sproject.io/v1beta1
+kind: Cluster
+metadata:
+  name: orbservability-demo-cluster
+spec:
+  # https://github.com/k0sproject/k0sctl#host-fields
+  hosts:
+    - ssh:
+        address: 192.168.4.52
+        user: dudo
+        port: 22
+        keyPath: ~/.ssh/id_rsa
+      role: single
+      installFlags:
+        - --labels="storage-type=local"
+  k0s:
+    version: 1.28.4+k0s.0
+    dynamicConfig: false
+    config:
+      apiVersion: k0s.k0sproject.io/v1beta1
+      kind: Cluster
+      metadata:
+        name: k0s
+      spec:
+        api:
+          k0sApiPort: 9443
+          port: 6443
+        installConfig:
+          users:
+            etcdUser: etcd
+            kineUser: kube-apiserver
+            konnectivityUser: konnectivity-server
+            kubeAPIserverUser: kube-apiserver
+            kubeSchedulerUser: kube-scheduler
+        konnectivity:
+          adminPort: 8133
+          agentPort: 8132
+        network:
+          kubeProxy:
+            disabled: true
+          podCIDR: 10.245.0.0/16
+          provider: custom
+          serviceCIDR: 10.97.0.0/12
+        podSecurityPolicy:
+          defaultPolicy: 00-k0s-privileged
+        storage:
+          type: etcd
+        telemetry:
+          enabled: false
