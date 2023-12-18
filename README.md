@@ -1,7 +1,5 @@
 # Demo Cluster
 
-Flux driven kubernetes cluster.
-
 ```mermaid
 mindmap
   root(clusters)
